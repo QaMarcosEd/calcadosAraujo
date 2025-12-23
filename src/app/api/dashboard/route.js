@@ -14,7 +14,7 @@
 // }
 // src/app/api/dashboard/route.js
 import { NextResponse } from 'next/server'
-import { getDashboardData } from './dashboardController'
+import { getDashboardData } from './controller/dashboardController'
 
 export async function GET(request) {
   try {
