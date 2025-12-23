@@ -1,0 +1,59 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Produto {
+  id               Int      @id @default(autoincrement())
+  nome             String
+  tamanho          Int
+  referencia       String?
+  cor              String
+  quantidade       Int
+
+  precoCusto       Float?   @default(0.0) // Novo: opcional, default 0
+  precoVenda       Float    // Novo: obrigatório, substitui preco
+  precoPromocao    Float?
+
+  emPromocao       Boolean   @default(false)
+
+  imagem           String?  // Novo: opcional, para URL da imagem
+  genero           String?
+  modelo           String?
+  marca            String?
+  disponivel       Boolean  @default(true)
+  lote             String?
+  dataRecebimento  DateTime
+  baixas           Baixa[]
+
+  createdAt        DateTime @default(now())
+}
+
+enum Role {
+  ADMIN
+  FUNCIONARIO
+}
+
+model User {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  password  String
+  role      Role     @default(FUNCIONARIO)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Baixa {
+  id          Int      @id @default(autoincrement())
+  produtoId   Int
+  produto     Produto  @relation(fields: [produtoId], references: [id])
+  quantidade  Int
+  valorTotal  Float
+  dataBaixa   DateTime @default(now())
+  createdAt   DateTime @default(now())
+}
