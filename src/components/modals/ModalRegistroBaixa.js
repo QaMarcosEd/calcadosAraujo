@@ -23,6 +23,20 @@ export default function ModalRegistroBaixa({
     }
   }, [isOpen, produto]);
 
+  // // Atualiza valor total automaticamente quando muda a quantidade (mas permite edição manual)
+  // useEffect(() => {
+  //   if (produto && quantidade) {
+  //     const qtd = parseInt(quantidade, 10);
+  //     if (!isNaN(qtd) && qtd > 0) {
+  //       const valorCalculado = (produto.precoVenda * qtd).toFixed(2);
+  //       // Só atualiza automaticamente se o usuário não alterou manualmente
+  //       if (valorTotal === '' || parseFloat(valorTotal) === produto.precoVenda * (qtd - 1 || 1)) {
+  //         setValorTotal(valorCalculado);
+  //       }
+  //     }
+  //   }
+  // }, [quantidade, produto]);
+
   // Atualiza valor total automaticamente quando muda a quantidade (mas permite edição manual)
   useEffect(() => {
     if (produto && quantidade) {
@@ -35,7 +49,7 @@ export default function ModalRegistroBaixa({
         }
       }
     }
-  }, [quantidade, produto]);
+  }, [quantidade, produto, valorTotal]); // ← adiciona valorTotal aqui
 
   const handleConfirm = async () => {
     if (isSubmitting) return;

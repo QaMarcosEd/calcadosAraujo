@@ -87,10 +87,17 @@ export default function Estoque() {
     };
   }, [page]);
 
+  // // --- Garante que a página nunca passe do total disponível ---
+  // useEffect(() => {
+  //   if (page > totalPages) setPage(totalPages);
+  // }, [totalPages]);
+
   // --- Garante que a página nunca passe do total disponível ---
   useEffect(() => {
-    if (page > totalPages) setPage(totalPages);
-  }, [totalPages]);
+    if (page > totalPages && totalPages > 0) {
+      setPage(totalPages);
+    }
+  }, [page, totalPages]);
 
   // --- Filtro aplicado manualmente (mantém sua lógica original) ---
   const aplicarFiltro = () => {

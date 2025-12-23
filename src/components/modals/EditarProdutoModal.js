@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { format } from 'date-fns';
 import toast from 'react-hot-toast';
+import Image from 'next/image';
 
 export default function EditarProdutoModal({ isOpen, onClose, produtoId, onSuccess }) {
   const [form, setForm] = useState({
@@ -303,7 +304,16 @@ const handleSubmit = async (e) => {
                   URL da Imagem
                 </label>
                 {form.imagem && (
-                  <img src={form.imagem} alt="Preview" className="mt-3 max-w-full h-48 object-cover rounded-lg shadow-md border" />
+                  // <img src={form.imagem} alt="Preview" className="mt-3 max-w-full h-48 object-cover rounded-lg shadow-md border" />
+                <div className="mt-3">
+                    <Image
+                      src={form.imagem}
+                      alt="Preview da imagem"
+                      width={800}   // largura máxima boa pra preview (ajusta se quiser menor)
+                      height={400}  // altura aproximada (Next.js mantém proporção)
+                      className="max-w-full h-48 object-cover rounded-lg shadow-md border"
+                    />
+                  </div>
                 )}
               </div>
 

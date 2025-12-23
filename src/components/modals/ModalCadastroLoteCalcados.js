@@ -4,6 +4,7 @@
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { format } from 'date-fns';
+import Image from 'next/image';
 
 export default function ModalCadastroLoteCalçados({ isOpen, onClose, onSubmit }) {
   const [genericos, setGenericos] = useState({
@@ -221,11 +222,19 @@ export default function ModalCadastroLoteCalçados({ isOpen, onClose, onSubmit }
 
               {genericos.imagem && (
                 <div className="sm:col-span-2 mt-2">
-                  <img
+                  {/* <img
                     src={genericos.imagem}
                     alt="Prévia da imagem"
                     className="max-w-full h-48 object-cover rounded-lg shadow-md border border-gray-200"
                     onError={() => toast.error('URL da imagem inválida')}
+                  /> */}
+                  <Image
+                    src={genericos.imagem}
+                    alt="Prévia da imagem"
+                    width={800}   // largura máxima razoável (ajusta se quiser menor, ex: 600)
+                    height={400}  // altura aproximada pra manter proporção (Next.js redimensiona automático)
+                    className="max-w-full h-48 object-cover rounded-lg shadow-md border border-gray-200"
+                    onError={() => toast.error('URL da imagem inválida')} // mantém teu onError
                   />
                 </div>
               )}
